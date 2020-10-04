@@ -20,18 +20,8 @@ $(document).ready(function(){
   searchButtonDiv.on("click", function(){
     var nextSearch = $("#city-search").val().trim();
     historyArray = JSON.parse(localStorage.getItem("user-history"));
-    console.log(typeof historyArray);
     historyArray.unshift(nextSearch);
-    console.log(typeof historyArray);
     localStorage.setItem("user-history", JSON.stringify(historyArray));
-    console.log(typeof historyArray);
-    // $.ajax({
-    //   url: "http://api.openweathermap.org/data/2.5/weather?q=" + nextSearch + "&appid=" + apiKey,
-    //   method: "GET"
-    // }).then(function(response) {
-    //   console.log(response);
-    //   weatherData = response;
-    // });
 
     renderPastSearches();
     $(nextSearch).text("");
@@ -45,19 +35,14 @@ $(document).ready(function(){
   // });
 
   function renderPastSearches (){
-    var userHistory = $("#user-history");
-    $(userHistory).empty();
+
+    $(userHistoryDiv).empty();
     historyArray = JSON.parse(localStorage.getItem("user-history"));
-    console.log(typeof historyArray)
-    console.log(historyArray)
-    console.log(historyArray.length)
+
     for (var i = 0; i < historyArray.length; i++){
-      console.log(historyArray[i]);
-     $("#user-history").prepend("<tr class = 'border' id = 'row" + i + "'>" + JSON.stringify(historyArray[i]) + "</tr>");
+      $(userHistoryDiv).append("<tr id = 'search-history-" + i + "><th scope = 'row'></th><td>" + historyArray[i] + "</td></tr>");
     }
-    $("#history-table").append()
+  
   }
 
 });
-
-gg
