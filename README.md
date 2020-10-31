@@ -40,4 +40,5 @@ This web app is deployed using github's free page hosting servers. Thanks Github
 ## Screenshots
 
 ![Weather Dashboard initial screen](./assets/weatherdash.png)
+________________________________________________________________
 ![Weather Dashboard in use](./assets/weatherdash2.png)
