@@ -4,7 +4,7 @@ A basic application for collecting weather data for user
 
 ## Instructions
 
-To try it out, visit :
+To try it out, visit : https://lucasbryg.github.io/Weather-Dashboard-App/
 Check out the images bellow for examples.
 
 ## Acceptance Criteria
@@ -38,3 +38,6 @@ This web app is deployed using github's free page hosting servers. Thanks Github
  - Developed by : Lucas Santiago
  
 ## Screenshots
+
+![Weather Dashboard initial screen](./assets/weatherdash.png)
+![Weather Dashboard in use](./assets/weatherdash2.png)
