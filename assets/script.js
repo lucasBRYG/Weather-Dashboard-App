@@ -1,6 +1,7 @@
 
 const searchButtonDiv = $("#search-bar");
 const userHistoryDiv = $("#user-history");
+const clearHistoryDiv = $("#clear-hist")
 let historyArray = [];
 
 
@@ -35,18 +36,22 @@ $(document).ready(function(){
         method: "GET"
         }).then(function(response) {
         
-        renderWeather(response);
+          historyArray = JSON.parse(localStorage.getItem("user-history"));
+          historyArray.unshift(nextSearch);
+          localStorage.setItem("user-history", JSON.stringify(historyArray));
+          renderPastSearches()
+          console.log(response);
+          renderWeather(response);
 
-        console.log(response);
-      });
+        });
 
     });
 
-    historyArray = JSON.parse(localStorage.getItem("user-history"));
-    historyArray.unshift(nextSearch);
-    localStorage.setItem("user-history", JSON.stringify(historyArray));
-    renderPastSearches()
+  });
 
+  clearHistoryDiv.on("click", function() {
+    $(userHistoryDiv).empty();
+    localStorage.setItem("user-history", "[]")
   });
 
 });
@@ -63,18 +68,22 @@ function renderPastSearches (){
 
 }
 
-
+function ajaxCall() {
+  
+}
 
 function renderWeather(response) {
-  
-  //$("#weather-icon").att("source", .data.weather.weathericonURL);
-  $("#temp-data").append("Current Temperature : " + response.current.temp);
-  $("#hum-data").append("Humidity : " + response.current.humidity);
-  $("#wind-data").append("Wind Speed : " + response.current.wind_speed);
-  console.log(response.current.wind_speed)
-  $("#uvi-data").append("UV Index : " + response.current.uvi);
-  console.log(response.current.uvi)
 
+
+  
+  $("#weather-icon").attr("source", "http://openweathermap.org/img/wn/" + response.daily[0].weather[0].icon + "@2x.png");
+  $("#temp-data").html("Current Temperature : " + response.current.temp);
+  $("#hum-data").html("Humidity : " + response.current.humidity);
+  $("#wind-data").html("Wind Speed : " + response.current.wind_speed);
+
+  $("#uvi-data").html("UV Index : " + response.current.uvi);
+
+  $("#five-day-cards").empty();
   for (let i = 0; i < 5; i++){
     let todayWeather = response.daily[i];
     let date = getDate(todayWeather.dt);
