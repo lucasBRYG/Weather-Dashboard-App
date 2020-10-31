@@ -1,6 +1,11 @@
 # Weather-Dashboard-App
+
 A basic application for collecting weather data for user
 
+## Instructions
+
+To try it out, visit :
+Check out the images bellow for examples.
 
 ## Acceptance Criteria
 
@@ -19,3 +24,17 @@ THEN I am again presented with current and future conditions for that city
 WHEN I open the weather dashboard
 THEN I am presented with the last searched city forecast
 ```
+
+## Develop
+
+Clone access is public, public liscnece. To get started try making your own branch and cloning using your SSH key.
+
+## Deployment
+
+This web app is deployed using github's free page hosting servers. Thanks Github!
+
+## Author
+
+ - Developed by : Lucas Santiago
+ 
+## Screenshots
