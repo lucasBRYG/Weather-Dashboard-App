@@ -20,13 +20,11 @@ $(document).ready(function(){
 
     const key = "cda0d2203893e7ce64f2ac18afeff339";
     const weaatherURL = "https://api.openweathermap.org/data/2.5/weather?q=" + nextSearch + "&units=imperial&appid=" + key
-    const dailyURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + nextSearch + "&cnt=5&units=imperial&appid=" + nextSearch + "&appid=" + key;
-
+    
     $.ajax({
       url: weaatherURL,
       method: "GET"
     }).then(function(response) {
-      // console.log(response)
       $("#city-name").text(response.name);
       let lat = response.coord.lat;
       let long = response.coord.lon;
@@ -39,8 +37,7 @@ $(document).ready(function(){
           historyArray = JSON.parse(localStorage.getItem("user-history"));
           historyArray.unshift(nextSearch);
           localStorage.setItem("user-history", JSON.stringify(historyArray));
-          renderPastSearches()
-          console.log(response);
+          renderPastSearches();
           renderWeather(response);
 
         });
@@ -62,19 +59,43 @@ function renderPastSearches (){
   historyArray = JSON.parse(localStorage.getItem("user-history"));
   for (var i = 0; i < 15; i++){
     if(historyArray[i]){
-      $(userHistoryDiv).append("<tr id = 'search-history-" + i + "><th scope = 'row'></th><td>" + historyArray[i] + "</td></tr>");
+      $(userHistoryDiv).append("<tr id = 'search-history-" + i + "><th scope = 'row'><td class = 'past-search'>" + historyArray[i] + "</td></th></tr>");
     }
   }
 
-}
+  $(".past-search").on("click", function(event) {
 
-function ajaxCall() {
-  
+    let nextSearch = $(event.target).text();
+
+    const key = "cda0d2203893e7ce64f2ac18afeff339";
+    const weaatherURL = "https://api.openweathermap.org/data/2.5/weather?q=" + nextSearch + "&units=imperial&appid=" + key
+    
+    $.ajax({
+      url: weaatherURL,
+      method: "GET"
+    }).then(function(response) {
+      $("#city-name").text(response.name);
+      let lat = response.coord.lat;
+      let long = response.coord.lon;
+      const oneCall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&exclude=minutely,hourly,alerts&units=imperial&appid=" + key
+      $.ajax({
+        url: oneCall,
+        method: "GET"
+        }).then(function(response) {
+        
+          historyArray = JSON.parse(localStorage.getItem("user-history"));
+          historyArray.unshift(nextSearch);
+          localStorage.setItem("user-history", JSON.stringify(historyArray));
+          renderWeather(response);
+
+        });
+
+    });
+  });
+
 }
 
 function renderWeather(response) {
-
-
   
   $("#weather-icon").attr("source", "http://openweathermap.org/img/wn/" + response.daily[0].weather[0].icon + "@2x.png");
   $("#temp-data").html("Current Temperature : " + response.current.temp);
