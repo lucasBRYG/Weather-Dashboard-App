@@ -7,7 +7,7 @@ A basic application for collecting weather data for user
 To try it out, visit : https://lucasbryg.github.io/Weather-Dashboard-App/
 Check out the images bellow for examples.
 
-## Acceptance Criteria
+## User Story
 
 ```
 GIVEN a weather dashboard with form inputs
